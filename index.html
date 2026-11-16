@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مبادئ محاسبة التكاليف — المرجع الشامل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#152a2a; --paper:#f7f4ec; --paper2:#efe9da;
+  --accent:#8a5a2b; --accent2:#0f5c4f; --line:#d8cfb8;
+  --card:#fffdf7; --gold:#b8863b;
+  --r-top: env(safe-area-inset-top,0px); --r-bot: env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--ink:#e9e4d6;--paper:#161c1b;--paper2:#1d2422;--card:#1c2321;--line:#33413c;--accent:#d3a06a;--accent2:#5fb3a1;--gold:#d8b06a;}
+}
+:root[data-theme="dark"]{--ink:#e9e4d6;--paper:#161c1b;--paper2:#1d2422;--card:#1c2321;--line:#33413c;--accent:#d3a06a;--accent2:#5fb3a1;--gold:#d8b06a;}
+*{box-sizing:border-box;}
+html{scroll-padding-top:calc(72px + var(--r-top));}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Tajawal',sans-serif;line-height:1.85;padding-top:var(--r-top);padding-bottom:var(--r-bot);}
+h1,h2,h3,h4{font-family:'Cairo',sans-serif;margin:0 0 .5em;}
+a{color:var(--accent2);}
+.top{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--line);padding:calc(.7rem + var(--r-top)) 1rem .7rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.top strong{font-family:'Cairo',sans-serif;font-size:1.05rem;}
+.top select{font-family:inherit;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:.35rem .6rem;font-size:.85rem;}
+.wrap{display:grid;grid-template-columns:230px 1fr;gap:0;max-width:1180px;margin:0 auto;}
+nav.side{position:sticky;top:calc(56px + var(--r-top));align-self:start;height:calc(100vh - 56px - var(--r-top));overflow:auto;padding:1.2rem .8rem;border-left:1px solid var(--line);}
+nav.side a{display:block;padding:.4rem .6rem;border-radius:8px;color:var(--ink);text-decoration:none;font-size:.92rem;opacity:.8;}
+nav.side a:hover{background:var(--paper2);opacity:1;}
+nav.side .grp{font-family:'Cairo',sans-serif;font-weight:700;color:var(--accent);margin:1rem 0 .3rem;font-size:.8rem;}
+main{padding:1.5rem clamp(1rem,3vw,2.5rem) 4rem;max-width:900px;}
+.hero{padding:2rem 0 1rem;border-bottom:3px double var(--line);margin-bottom:2rem;}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);}
+.hero p{opacity:.85;max-width:60ch;}
+section{margin-bottom:3rem;scroll-margin-top:70px;}
+section > h2{font-size:1.5rem;color:var(--accent);border-bottom:2px solid var(--line);padding-bottom:.4rem;}
+h3{font-size:1.15rem;color:var(--accent2);margin-top:1.6rem;}
+h4{font-size:1rem;margin-top:1.1rem;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.9rem 0;}
+.formula{background:var(--paper2);border-right:4px solid var(--gold);border-radius:6px;padding:.7rem 1rem;margin:.7rem 0;font-family:'Cairo',sans-serif;font-weight:600;overflow-x:auto;}
+.formula small{display:block;font-family:'Tajawal',sans-serif;font-weight:400;opacity:.75;margin-top:.3rem;}
+table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.92rem;}
+th,td{border:1px solid var(--line);padding:.45rem .6rem;text-align:center;}
+th{background:var(--paper2);font-family:'Cairo',sans-serif;}
+td:first-child,th:first-child{text-align:right;}
+ul,ol{padding-inline-start:1.4rem;}
+li{margin:.25rem 0;}
+.def{margin:.6rem 0;}
+.def b{color:var(--accent);}
+.tag{display:inline-block;background:var(--accent2);color:var(--paper);font-size:.75rem;font-family:'Cairo',sans-serif;padding:.1rem .55rem;border-radius:20px;margin-inline-end:.4rem;}
+.ex{background:var(--paper2);border-radius:8px;padding:.8rem 1rem;margin:.6rem 0;}
+.ex .lbl{font-family:'Cairo',sans-serif;font-weight:700;color:var(--gold);}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:640px){.two{grid-template-columns:1fr;} .wrap{grid-template-columns:1fr;} nav.side{position:static;height:auto;border-left:none;border-bottom:1px solid var(--line);}}
+footer{text-align:center;padding:2rem;opacity:.6;font-size:.85rem;}
+.pill{background:var(--paper2);border:1px dashed var(--line);border-radius:8px;padding:.5rem .8rem;font-size:.9rem;margin:.5rem 0;}
+.fcard{background:var(--card);border:1px solid var(--line);border-right:4px solid var(--gold);border-radius:10px;padding:1rem 1.3rem;margin:1.1rem 0;}
+.fname{font-family:'Cairo',sans-serif;font-weight:700;color:var(--accent2);font-size:1rem;margin-bottom:.6rem;}
+.feq{font-family:'Cairo',sans-serif;font-weight:700;font-size:1.15rem;background:var(--paper2);padding:.9rem 1rem;border-radius:8px;text-align:center;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem;direction:rtl;}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .25rem;line-height:1.3;}
+.frac .num{border-bottom:2.5px solid var(--ink);padding:0 .5rem .25rem;}
+.frac .den{padding:.25rem .5rem 0;}
+.flegend{margin:.7rem 0 0;padding-inline-start:1.3rem;font-size:.9rem;}
+.flegend li{margin:.25rem 0;}
+.flegend b{color:var(--accent);font-family:'Cairo',sans-serif;}
+.ustep{color:var(--gold);font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;background:var(--paper2);padding:.15rem .6rem;border-radius:20px;display:inline-block;margin-bottom:.5rem;}
+</style>
+</head>
+<body>
+<div class="top">
+  <strong>📘 مبادئ محاسبة التكاليف</strong>
+  <select onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
+    <option value="">القفز إلى…</option>
+    <option value="u1">الوحدة ١: الأساسيات</option>
+    <option value="u2">الوحدة ٢: التبويب</option>
+    <option value="u3">الوحدة ٣: نظريات التحميل</option>
+    <option value="u4">الوحدة ٤: التعادل والربح</option>
+    <option value="u5">الوحدة ٥: نظام المراحل</option>
+    <option value="u6">الوحدة ٦: ABC</option>
+    <option value="allformulas">كل القوانين</option>
+    <option value="glossary">المصطلحات بالإنجليزي</option>
+  </select>
+</div>
+<div class="wrap">
+<nav class="side">
+  <div class="grp">الوحدات الدراسية</div>
+  <a href="#u1">١ · أساسيات محاسبة التكاليف</a>
+  <a href="#u2">٢ · تبويب عناصر التكاليف</a>
+  <a href="#u3">٣ · نظريات تحميل التكاليف</a>
+  <a href="#u4">٤ · التكلفة والحجم والربح</a>
+  <a href="#u5">٥ · قياس التكلفة بالمراحل</a>
+  <a href="#u6">٦ · التكلفة على أساس النشاط</a>
+  <div class="grp">مرجع سريع</div>
+  <a href="#allformulas">كل القوانين مجمّعة</a>
+  <a href="#glossary">المصطلحات بالإنجليزي</a>
+</nav>
+<main>
+<div class="hero">
+  <h1>مبادئ محاسبة التكاليف</h1>
+  <p>ملخص شامل ومركّز لكل وحدات المنهج — التعريفات، التبويبات، المعادلات، والأمثلة المحلولة — في صفحة واحدة تُغنيك عن الرجوع للكتاب.</p>
+</div>
+
+<section id="u1">
+<h2>الوحدة الأولى — أساسيات محاسبة التكاليف</h2>
+
+<h3>تعريف محاسبة التكاليف</h3>
+<div class="card">فرع من فروع المحاسبة يهتم بتسجيل وتبويب وتحليل وتخصيص عناصر النفقات على مراكز التكلفة وأوامر التشغيل، بهدف حساب تكلفة المنتجات وإعداد تقارير تُمكّن <b>الإدارة (الطرف الداخلي فقط)</b> من أداء وظائفها واتخاذ القرارات الرشيدة.</div>
+
+<h3>أهداف محاسبة التكاليف</h3>
+<ol>
+<li>قياس تكلفة الأداء (عناصر، مراحل، أقسام، وحدات إنتاج)</li>
+<li>المساهمة في تسعير المنتجات والخدمات</li>
+<li>قياس الأداء الفعلي بصورة تفصيلية</li>
+<li>مساعدة الإدارة في التخطيط وإعداد الموازنات</li>
+<li>الرقابة على عناصر التكاليف عبر مقارنة الفعلي بالمعياري</li>
+<li>مساعدة الإدارة في اتخاذ القرارات (تسعير، شراء أو تصنيع...)</li>
+<li>تراجع هدفي تقييم المخزون وتخصيص الاستثمارات في ظل بيئة التصنيع الحديثة (JIT)</li>
+</ol>
+
+<h3>محاسبة التكاليف مقابل المحاسبة المالية</h3>
+<table>
+<tr><th>وجه المقارنة</th><th>المحاسبة المالية</th><th>محاسبة التكاليف</th></tr>
+<tr><td>نوع البيانات</td><td>مالية (نقدية)</td><td>تكاليفية (نقدية + كمية)</td></tr>
+<tr><td>الهدف</td><td>المركز المالي ونتيجة الأعمال</td><td>مساعدة الإدارة واتخاذ القرارات</td></tr>
+<tr><td>الأطراف المستفيدة</td><td>داخلية وخارجية</td><td>داخلية فقط</td></tr>
+<tr><td>مخرجات النظام</td><td>قوائم نمطية دورية إجمالية</td><td>قوائم متنوعة مستمرة تفصيلية</td></tr>
+</table>
+<p><b>التكامل:</b> المحاسبة المالية تمد محاسبة التكاليف بإجماليات العناصر، ومحاسبة التكاليف تمد المحاسبة المالية بتكلفة المخزون والمبيعات، مع مطابقة دورية بين النظامين.</p>
+
+<h3>مقومات نظام التكاليف (٨ عناصر)</h3>
+<div class="two">
+<ul>
+<li><b>دليل عناصر التكاليف</b> (أجور، مستلزمات سلعية/خدمية، مشتريات بغرض البيع...)</li>
+<li><b>مراكز التكلفة</b>: إنتاج، خدمات إنتاجية، خدمات تسويقية، خدمات إدارية وتمويلية</li>
+<li><b>دليل وحدات الإنتاج/التكلفة</b> (تحديد وحدة القياس)</li>
+<li><b>فترة التكاليف</b> (شهرية/ربع سنوية/سنوية)</li>
+</ul>
+<ul>
+<li><b>نظم التكاليف</b>: فعلية (تاريخية) أو معيارية</li>
+<li><b>طرق التكاليف</b>: أوامر إنتاجية أو مراحل إنتاجية</li>
+<li><b>الدورة المستندية</b> (خارجية وداخلية)</li>
+<li><b>المجموعة الدفترية</b>: نظام الانفصال أو نظام الاندماج</li>
+</ul>
+</div>
+
+<h3>العوامل المؤثرة في تصميم نظام التكاليف</h3>
+<p>هدف الإدارة من النظام · نظرة الإدارة لنظم المعلومات (منهج النظم) · نوع الصناعة · نوع المنتج/الخدمة (متجانس أو حسب طلب العميل) · كفاءة محاسب التكاليف.</p>
+</section>
+
+<section id="u2">
+<h2>الوحدة الثانية — تبويب عناصر التكاليف</h2>
+
+<h3>مفاهيم التكلفة لغرض قياس الإنتاج وتقويم المخزون</h3>
+<div class="def"><b>التكلفة الفعلية:</b> ما وقع فعلاً ومُدعّم بمستندات؛ تُستخدم لتحديد تكلفة المخزون آخر المدة وتكلفة البضاعة المباعة. عيبها أنها تحمل أخطاء الماضي ولا تصلح للتخطيط.</div>
+<div class="def"><b>التكلفة السلعية (تكلفة المنتج):</b> تلتصق بالسلعة؛ إن بيعت أصبحت تكلفة مستنفذة (قائمة الدخل)، وإن بقيت مخزونًا فهي تكلفة غير مستنفذة (قائمة المركز المالي) — تُسمى تكاليف قابلة للتخزين.</div>
+<div class="def"><b>التكلفة الزمنية (تكلفة فترة):</b> غير قابلة للتخزين، ترتبط بالفترة لا بوحدات الإنتاج (إدارية/تسويقية)، وتنقسم إلى: <i>نفقة إيرادية</i> (جارية، تُخصم فورًا) و<i>نفقة رأسمالية</i> (تُضاف للأصل ويُستهلك جزء منها كل فترة).</div>
+<div class="pill"><b>التكلفة ≠ المصروف ≠ الخسارة ≠ الضياع:</b> التكلفة = تضحية أفادت الإنتاج فعلًا (قد تكون ضمنية). المصروف = نفقة الفترة دون ارتباط مباشر بالإنتاج ولا يوجد مصروف ضمني. الخسارة = إنفاق غير متوقع دون منفعة (لا تدخل ضمن التكاليف، تُحمَّل على أ.خ). الضياع = تضحية غير ضرورية بسبب سوء إداري يمكن تجنبه (تُحمَّل على أ.خ).</div>
+
+<h3>مفاهيم التكلفة لغرض اتخاذ القرارات</h3>
+<ul>
+<li><span class="tag">تفاضلية</span> تتأثر بقرار معين (قد تكون متغيرة أو ثابتة)</li>
+<li><span class="tag">غارقة Sunk</span> لا تتأثر بالقرار — إنفاق ماضٍ لا يمكن استرداده</li>
+<li><span class="tag">فرصة بديلة Opportunity</span> = صافي دخل أفضل بديل تمت التضحية به</li>
+</ul>
+<div class="ex"><span class="lbl">مثال تكلفة الفرصة البديلة:</span> بدائل بصافي دخل متوقع أ=20,000، ب=35,000، ج=32,000. عند اختيار (ب) فإن تكلفة الفرصة البديلة = صافي دخل أفضل بديل تالٍ (ج) = <b>32,000 جنيه</b>.</div>
+
+<h3>مفاهيم التكلفة لغرض الرقابة</h3>
+<p><b>معيارية</b> (محددة مقدمًا وفق دراسات علمية واقعية، أساس تقييم الكفاءة) · <b>نمطية/مثالية</b> (كفاءة قصوى بلا أي هدر — يصعب تحقيقها عمليًا) · <b>تقديرية</b> (تعتمد على البيانات التاريخية أو التقدير الشخصي للموازنات).</p>
+
+<h3>تبويبات عناصر التكاليف</h3>
+<table>
+<tr><th>أساس التبويب</th><th>الأقسام</th></tr>
+<tr><td>النوعي (الطبيعي)</td><td>مواد — عمل (أجور) — مصروفات أخرى (خدمات)</td></tr>
+<tr><td>الوظيفي</td><td>تكاليف إنتاجية — تسويقية — إدارية وتمويلية</td></tr>
+<tr><td>العلاقة بوحدة الإنتاج</td><td>مباشرة (تكلفة أولية) — غير مباشرة (تكلفة إضافية صناعية)</td></tr>
+<tr><td>العلاقة بحجم الإنتاج</td><td>متغيرة — ثابتة</td></tr>
+<tr><td>عامل الزمن</td><td>تاريخية (فعلية) — معيارية</td></tr>
+<tr><td>إمكانية الرقابة</td><td>قابلة للرقابة — غير قابلة للرقابة (تتوقف على السلطة لا على طبيعة البند)</td></tr>
+</table>
+
+<div class="formula">تكلفة متغيرة إجمالية: ت م = أ × س &nbsp;|&nbsp; تكلفة ثابتة: ت ث = ب
+<small>أ = متوسط التكلفة المتغيرة للوحدة (ثابت) · س = عدد الوحدات · ب = مبلغ ثابت. ملاحظة: المتغيرة ثابتة للوحدة ومتغيرة بالإجمالي، والثابتة عكس ذلك تمامًا.</small></div>
+<p>التكاليف المباشرة كلها متغيرة، لكن غير المباشرة منها ما هو ثابت ومنها ما هو متغير.</p>
+</section>
+
+<section id="u3">
+<h2>الوحدة الثالثة — نظريات تحميل التكاليف</h2>
+<p>ثلاث نظريات لتحميل الوحدات المنتجة بعناصر التكلفة:</p>
+<div class="formula">تكلفة إجمالية (كلية) = تكاليف مباشرة + تكاليف غير مباشرة (متغيرة + ثابتة)
+تكلفة متغيرة = تكاليف مباشرة + تكاليف غير مباشرة متغيرة فقط
+تكلفة الطاقة المستغلة = تكاليف مباشرة + تكاليف غير مباشرة (متغيرة + ثابتة <u>مستغلة فقط</u>)</div>
+
+<h3>١. نظرية التكلفة الإجمالية (الكلية) — Absorption Costing</h3>
+<p><b>مزاياها:</b> سهلة التطبيق، تتفق مع دفاتر المحاسبة المالية ومبدأ مقابلة الإيرادات بالمصروفات، تضمن تغطية كل التكاليف عند التسعير.<br>
+<b>عيوبها:</b> تقلب متوسط التكلفة/الوحدة وسعر البيع بتغير الحجم، تحمّل المستهلك تكلفة الطاقة العاطلة، ضعيفة للتخطيط والرقابة واتخاذ قرارات الأجل القصير، تنقل جزءًا من التكلفة الثابتة لفترة لاحقة عبر المخزون.</p>
+
+<h3>٢. نظرية التكلفة المتغيرة (الحدية) — Variable/Marginal Costing</h3>
+<p>تُحمَّل الوحدات بالتكلفة المتغيرة فقط، وتُخصم التكلفة الثابتة بالكامل من هامش المساهمة كعبء فترة.<br>
+<b>مزاياها:</b> دقة التسعير، رقابة أفضل بالمعايير، تخدم تحليل التعادل والقرارات قصيرة الأجل، لا تنقل تكلفة ثابتة بين الفترات.<br>
+<b>عيوبها:</b> تجاهل استفادة الإنتاج من التكلفة الثابتة، صعوبة الفصل بين المتغير والثابت (شبه متغيرة).</p>
+
+<h3>٣. نظرية الطاقة المستغلة</h3>
+<div class="formula">نسبة الاستغلال % = الطاقة الفعلية ÷ الطاقة المتاحة
+نسبة عدم الاستغلال % = 100% − نسبة الاستغلال
+ت. الجزء الثابت المستغل = ت. الإنتاج الثابتة الكلية × نسبة الاستغلال
+ت. الجزء الثابت غير المستغل = ت. الإنتاج الثابتة الكلية × نسبة عدم الاستغلال</div>
+<p><b>أنواع الطاقة:</b> القصوى (نظرية، بلا أعطال) · المتاحة (مع مراعاة الأعطال الحتمية) · الفعلية (بعد استبعاد كل الأعطال).<br>
+تعالج عيوب النظريتين السابقتين: عدالة أكبر في التحميل + توجيه نظر الإدارة للطاقة العاطلة، لكنها تحتاج دراسات معقدة لقياس الطاقات.</p>
+
+<div class="ex"><span class="lbl">مثال محلول:</span> وحدات منتجة 1,600، طاقة متاحة 2,000، تكلفة ثابتة كلية 30,000 جنيه.
+<div class="formula" style="margin-top:.4rem">نسبة الاستغلال = 1,600÷2,000 = 80% → ت. ثابتة مستغلة = 30,000×80% = 24,000 جنيه
+ت. ثابتة غير مستغلة = 30,000×20% = 6,000 جنيه (تُدرج كعبء عام في قائمة الدخل)</div></div>
+
+<h3>هيكل قائمة التكاليف (في ظل أي نظرية)</h3>
+<div class="formula">التكلفة الأولية = مواد مباشرة + أجور مباشرة + مصروفات مباشرة
+التكلفة الصناعية الإضافية = مواد غير مباشرة + أجور غير مباشرة + مصروفات غير مباشرة
+تكلفة الإنتاج التام = ت.أولية + ت.صناعية إضافية
+ت. الصناعية للمبيعات = ت.إنتاج تام + مخزون تام أول المدة − مخزون تام آخر المدة
+تكلفة المبيعات = ت. صناعية للمبيعات + تكاليف تسويقية
+مخزون آخر الفترة = مخزون أول الفترة + الإنتاج − المبيعات</div>
+<p>وفي قائمة الدخل: إيراد المبيعات − تكلفة المبيعات = مجمل الربح، ثم يُخصم منه ما تبقى (إدارية، وفي نظرية المتغيرة: التكاليف الثابتة كاملة) للوصول لصافي الربح.</p>
+</section>
+
+<section id="u4">
+<h2>الوحدة الرابعة — تحليل العلاقة بين التكلفة والحجم والربح</h2>
+
+<h3>نقطة التعادل</h3>
+<p>النقطة التي تتساوى عندها الإيرادات الكلية مع التكاليف الكلية (الربح = صفر)، أو التي يتساوى عندها هامش المساهمة مع التكاليف الثابتة.</p>
+
+<div id="formulas">
+<div class="formula">هامش المساهمة للوحدة = سعر بيع الوحدة − التكلفة المتغيرة للوحدة
+حجم التعادل (وحدات) = (التكاليف الثابتة + الربح المستهدف) ÷ هامش المساهمة للوحدة
+قيمة مبيعات التعادل = (التكاليف الثابتة + الربح المستهدف) ÷ نسبة هامش المساهمة
+نسبة هامش المساهمة = هامش المساهمة للوحدة ÷ سعر بيع الوحدة</div>
+</div>
+
+<h3>أثر تغير المتغيرات الثلاثة على حجم التعادل</h3>
+<table>
+<tr><th>المتغير</th><th>عند الزيادة</th><th>نوع العلاقة</th></tr>
+<tr><td>التكاليف الثابتة</td><td>يزيد حجم التعادل</td><td>طردية</td></tr>
+<tr><td>سعر بيع الوحدة</td><td>يقل حجم التعادل</td><td>عكسية</td></tr>
+<tr><td>التكلفة المتغيرة للوحدة</td><td>يزيد حجم التعادل</td><td>طردية</td></tr>
+</table>
+
+<h3>التخطيط للأرباح</h3>
+<div class="formula">كمية مبيعات لتحقيق ربح مستهدف = (ثابتة + ربح مستهدف) ÷ هامش مساهمة الوحدة
+قيمة مبيعات تحقق نسبة ربح معينة = التكاليف الثابتة ÷ (نسبة هامش المساهمة − نسبة الربح المطلوبة)
+صافي الربح عند حجم معين = (حجم المبيعات الفعلي − حجم التعادل) × هامش مساهمة الوحدة</div>
+
+<h3>هامش الأمان (مقياس درجة المخاطرة)</h3>
+<div class="formula">هامش الأمان = المبيعات الفعلية/المتوقعة − مبيعات التعادل
+نسبة هامش الأمان = (المبيعات الفعلية − مبيعات التعادل) ÷ المبيعات الفعلية × 100
+صافي الربح = هامش الأمان × هامش المساهمة للوحدة</div>
+<p>كلما ارتفعت نسبة هامش الأمان، قلّت درجة مخاطرة المنشأة — والعكس صحيح.</p>
+
+<div class="ex"><span class="lbl">مثال محلول (تعادل):</span> سعر بيع 40، تكلفة متغيرة 30، تكاليف ثابتة 60,000.
+<div class="formula" style="margin-top:.4rem">حجم التعادل = 60,000÷(40−30) = 6,000 وحدة
+قيمة مبيعات التعادل = 6,000 × 40 = 240,000 جنيه</div></div>
+</section>
+
+<section id="u5">
+<h2>الوحدة الخامسة — قياس التكلفة بنظام المراحل</h2>
+
+<h3>نظام الأوامر مقابل نظام المراحل</h3>
+<table>
+<tr><th></th><th>نظام الأوامر</th><th>نظام المراحل</th></tr>
+<tr><td>الإنتاج خلال الفترة</td><td>متعدد (حسب طلب العميل)</td><td>منفرد نمطي مستمر</td></tr>
+<tr><td>تخصيص التكاليف على</td><td>الأمر الإنتاجي</td><td>المرحلة الإنتاجية</td></tr>
+<tr><td>الأداة</td><td>قائمة تكلفة لكل أمر</td><td>تقرير تكلفة لكل مرحلة</td></tr>
+<tr><td>أمثلة</td><td>أثاث، سفن، مقاولات</td><td>غزل ونسيج، أسمنت، مشروبات</td></tr>
+</table>
+<p>التشابه: نفس الهدف (توزيع التكلفة، تحديد تكلفة المنتج وتقييم المخزون، خدمة الإدارة) ونفس الحسابات الأساسية.</p>
+
+<h3>أشكال نظام المراحل</h3>
+<p><b>متتابعة</b> (مخرجات مرحلة = مدخلات التالية، كالغزل والنسيج) · <b>متوازية</b> (تُجمَّع عدة مراحل في مرحلة تالية، كصناعة الحاسوب) · <b>تدفق مختار</b> (يتحدد المسار حسب مواصفات المنتج، كصناعة اللحوم).</p>
+
+<h3>الوحدات المتجانسة (المكافئة) — جوهر النظام</h3>
+<div class="formula">الإنتاج المتجانس = وحدات تامة ومحولة (100%) + (وحدات تحت التشغيل آخر المدة × درجة التمام%)
+متوسط تكلفة الوحدة المتجانسة = تكلفة المرحلة ÷ عدد الوحدات المتجانسة
+تكلفة الإنتاج التام المحوَّل = عدد الوحدات التامة × تكلفة الوحدة المتجانسة
+تكلفة الإنتاج تحت التشغيل = وحداته المكافئة × تكلفة الوحدة المتجانسة</div>
+<p class="pill">إن أُضيفت المواد بالكامل <b>أول</b> المرحلة، فدرجة تمام الشغل تحت التشغيل من المواد = 100%. وإن أُضيفت في <b>نهاية</b> المرحلة، فدرجة تمامها من المواد = 0%. (تكلفة التحويل = أجور + مصروفات صناعية غير مباشرة، وتُحسب درجة تمامها بمعزل عن المواد).</p>
+
+<h3>إجراءات نظام المراحل (٥ خطوات)</h3>
+<ol><li>تحديد تكلفة المرحلة (مواد + أجور + مصروفات غير مباشرة مباشرة)</li><li>تحديد الوحدات المتجانسة</li><li>متوسط تكلفة الوحدة = تكلفة المرحلة ÷ الوحدات المتجانسة</li><li>تحديد تكلفة الإنتاج التام المحوَّل وسعر التحويل</li><li>تحديد تكلفة الإنتاج تحت التشغيل آخر الفترة</li></ol>
+
+<div class="ex"><span class="lbl">مثال محلول:</span> بدء إنتاج 10,000 وحدة، تام 7,000، تحت التشغيل 3,000 (تمام مواد 70%، تحويل 50%). تكلفة الفترة: مواد 45,500، تحويل 34,000.
+<table style="margin-top:.5rem">
+<tr><th>البيان</th><th>وحدات فعلية</th><th>متجانس-مواد</th><th>متجانس-تحويل</th></tr>
+<tr><td>تامة ومحولة</td><td>7,000</td><td>7,000</td><td>7,000</td></tr>
+<tr><td>تحت التشغيل</td><td>3,000</td><td>2,100</td><td>1,500</td></tr>
+<tr><td><b>الإجمالي المتجانس</b></td><td>10,000</td><td><b>9,100</b></td><td><b>8,500</b></td></tr>
+</table>
+<div class="formula" style="margin-top:.4rem">ت. وحدة المواد = 45,500÷9,100 = 5 ج | ت. وحدة التحويل = 34,000÷8,500 = 4 ج
+ت. الإنتاج التام = 7,000×(5+4) = 63,000 ج | ت. تحت التشغيل = (2,100×5)+(1,500×4) = 16,500 ج</div></div>
+</section>
+
+<section id="u6">
+<h2>الوحدة السادسة — التكلفة على أساس النشاط (ABC)</h2>
+
+<h3>التعريف والفكرة الجوهرية</h3>
+<div class="card">نظام محاسبي حديث (ظهر فعليًا 1987 على يد <b>Kaplan &amp; Cooper</b>) يقوم على تقسيم المنشأة إلى <b>أنشطة</b>، بحيث "المنتجات تستهلك أنشطة، والأنشطة تستهلك موارد (تكاليف)"، ويتم تخصيص التكلفة على الأنشطة أولًا ثم على المنتجات عبر <b>مسببات التكلفة (Cost Drivers)</b> بدلًا من التوزيع العشوائي التقليدي.</div>
+
+<h3>أسباب النشأة</h3>
+<p>تطور بيئة الأعمال الصناعية (مرونة وتنوع الإنتاج) وزيادة حدة المنافسة محليًا وعالميًا، مما استلزم دقة أكبر في تحديد التكلفة.</p>
+
+<h3>مراحل عمل النظام</h3>
+<ol>
+<li><b>إدارة النشاط:</b> استبعاد الأنشطة التي لا تضيف قيمة، وتعزيز التي تضيف قيمة</li>
+<li><b>محاسبة تكاليف الأنشطة:</b> تحديد مسببات التكلفة وربطها بالأنشطة</li>
+<li><b>نظام ABC نفسه:</b> تقسيم المنتج إلى أنشطة، وتخصيص التكلفة عبر المسببات</li>
+</ol>
+
+<div class="formula">معدل التحميل (التخصيص) = تكلفة النشاط ÷ إجمالي مسبب التكلفة (مثال: ساعات العمل)
+التكلفة المخصصة للمنتج = نصيب المنتج من مسبب التكلفة × معدل التحميل</div>
+
+<div class="ex"><span class="lbl">مثال محلول:</span> فاتورة كهرباء سنوية 50,000 جنيه، إجمالي ساعات تشغيل الآلات 2,500 ساعة، استخدم المنتج "ص" الآلات 10 ساعات.
+<div class="formula" style="margin-top:.4rem">معدل التحميل = 50,000÷2,500 = 20 ج/ساعة
+الكهرباء المخصصة للمنتج ص = 10×20 = <b>200 جنيه</b></div></div>
+
+<div class="two">
+<div>
+<h4>مزايا ABC</h4>
+<ul>
+<li>دقة أكبر عبر تعدد مسببات التكلفة</li>
+<li>معلومات تساعد في ترشيد قرارات التسعير</li>
+<li>تحسين الرقابة على التكاليف غير المباشرة</li>
+<li>الكشف عن جدوى كل نشاط وإلغاء عديم القيمة</li>
+</ul>
+</div>
+<div>
+<h4>عيوب ABC</h4>
+<ul>
+<li>تطوير للنظم التقليدية لا بديل جذري كامل</li>
+<li>الكفاءة تعتمد على حسن اختيار مسبب التكلفة</li>
+<li>تكلفة تطبيق مرتفعة (خبراء + تدريب)</li>
+<li>لا يُنهي مشكلة التوزيع العشوائي كليًا لبعض البنود</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="allformulas">
+<h2>📐 كل القوانين مجمّعة — مكتوبة بوضوح مع شرح كل جزء</h2>
+<p>كل قانون في كارت منفصل: المعادلة أولًا، وتحتها شرح لكل رمز فيها.</p>
+
+<h3>الوحدة ٢ — سلوك التكلفة (ثابتة ومتغيرة)</h3>
+
+<div class="fcard">
+<div class="fname">١) إجمالي التكلفة المتغيرة</div>
+<div class="feq">ت م&nbsp;=&nbsp;أ&nbsp;×&nbsp;س</div>
+<ul class="flegend">
+<li><b>ت م</b> = إجمالي التكلفة المتغيرة (تتغير بتغير الحجم)</li>
+<li><b>أ</b> = نصيب الوحدة من التكلفة المتغيرة (رقم ثابت لا يتغير)</li>
+<li><b>س</b> = عدد الوحدات المنتجة أو حجم النشاط</li>
+</ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٢) إجمالي التكلفة الثابتة</div>
+<div class="feq">ت ث&nbsp;=&nbsp;ب</div>
+<ul class="flegend">
+<li><b>ت ث</b> = إجمالي التكلفة الثابتة (لا تتغير بتغير الحجم إطلاقًا)</li>
+<li><b>ب</b> = مبلغ ثابت مقطوع (مثل الإيجار الشهري)</li>
+</ul>
+</div>
+
+<h3>الوحدة ٣ — نظريات تحميل التكاليف الثلاث</h3>
+
+<div class="fcard">
+<div class="fname">٣) نظرية التكلفة الإجمالية (الكلية)</div>
+<div class="feq">تكلفة الوحدة&nbsp;=&nbsp;تكاليف مباشرة&nbsp;+&nbsp;(تكاليف غير مباشرة متغيرة&nbsp;+&nbsp;تكاليف غير مباشرة ثابتة)</div>
+<ul class="flegend"><li>تُحمَّل الوحدة بكل عنصر تكلفة بلا استثناء — سواء ساهم في إنتاجها فعليًا أم لا.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٤) نظرية التكلفة المتغيرة (الحدية)</div>
+<div class="feq">تكلفة الوحدة&nbsp;=&nbsp;تكاليف مباشرة&nbsp;+&nbsp;تكاليف غير مباشرة متغيرة فقط</div>
+<ul class="flegend"><li>التكلفة الثابتة <b>لا تدخل</b> في تكلفة الوحدة، بل تُخصم دفعة واحدة في قائمة الدخل كعبء فترة.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٥) نظرية الطاقة المستغلة</div>
+<div class="feq">تكلفة الوحدة&nbsp;=&nbsp;تكاليف مباشرة&nbsp;+&nbsp;(تكاليف غير مباشرة متغيرة&nbsp;+&nbsp;نصيب الطاقة <u>المستغلة فقط</u> من الثابتة)</div>
+<ul class="flegend"><li>حل وسط: تُحمَّل الوحدة بالتكلفة الثابتة الخاصة بالجزء المُستغل فعليًا من الطاقة فقط، والباقي يُعتبر عبء فترة.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٦) نسبة الاستغلال</div>
+<div class="feq">نسبة الاستغلال %&nbsp;=&nbsp;<span class="frac"><span class="num">الطاقة الفعلية</span><span class="den">الطاقة المتاحة</span></span>&nbsp;× 100</div>
+<ul class="flegend">
+<li><b>الطاقة الفعلية</b> = ما تم إنتاجه بالفعل (بعد كل الأعطال)</li>
+<li><b>الطاقة المتاحة</b> = أقصى إنتاج ممكن مع مراعاة الأعطال الطبيعية المتوقعة</li>
+</ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٧) نسبة عدم الاستغلال</div>
+<div class="feq">نسبة عدم الاستغلال %&nbsp;=&nbsp;100%&nbsp;−&nbsp;نسبة الاستغلال</div>
+</div>
+
+<div class="fcard">
+<div class="fname">٨) تكلفة الجزء الثابت المُستغل</div>
+<div class="feq">= التكلفة الثابتة الكلية&nbsp;×&nbsp;نسبة الاستغلال</div>
+<ul class="flegend"><li>هذا الجزء فقط هو الذي يدخل ضمن تكلفة المنتج.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٩) تكلفة الجزء الثابت غير المُستغل</div>
+<div class="feq">= التكلفة الثابتة الكلية&nbsp;×&nbsp;نسبة عدم الاستغلال &nbsp;&nbsp;<span style="font-weight:400;font-size:.85em">(أو: الكلية − المستغلة)</span></div>
+<ul class="flegend"><li>هذا الجزء يُحمَّل على قائمة الدخل مباشرة كعبء عام، ولا يدخل في تكلفة المنتج.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">١٠) التكلفة الأولية (Prime Cost)</div>
+<div class="feq">= مواد مباشرة&nbsp;+&nbsp;أجور مباشرة&nbsp;+&nbsp;مصروفات مباشرة</div>
+</div>
+
+<div class="fcard">
+<div class="fname">١١) التكلفة الصناعية الإضافية (Overhead)</div>
+<div class="feq">= مواد غير مباشرة&nbsp;+&nbsp;أجور غير مباشرة&nbsp;+&nbsp;مصروفات غير مباشرة</div>
+</div>
+
+<div class="fcard">
+<div class="fname">١٢) تكلفة الإنتاج التام</div>
+<div class="feq">= التكلفة الأولية&nbsp;+&nbsp;التكلفة الصناعية الإضافية</div>
+</div>
+
+<div class="fcard">
+<div class="fname">١٣) التكلفة الصناعية للمبيعات</div>
+<div class="feq">= تكلفة الإنتاج التام&nbsp;+&nbsp;مخزون تام أول الفترة&nbsp;−&nbsp;مخزون تام آخر الفترة</div>
+<ul class="flegend"><li>الفكرة: بنضيف اللي كان موجود من الأول ونطرح اللي فضل آخر الفترة، عشان نوصل لتكلفة اللي اتباع فعلًا.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">١٤) تكلفة المبيعات</div>
+<div class="feq">= التكلفة الصناعية للمبيعات&nbsp;+&nbsp;التكاليف التسويقية</div>
+</div>
+
+<div class="fcard">
+<div class="fname">١٥) مخزون آخر الفترة</div>
+<div class="feq">= مخزون أول الفترة&nbsp;+&nbsp;الإنتاج&nbsp;−&nbsp;المبيعات</div>
+</div>
+
+<h3>الوحدة ٤ — نقطة التعادل وتحليل الربح</h3>
+
+<div class="fcard">
+<div class="fname">١٦) هامش المساهمة للوحدة</div>
+<div class="feq">= سعر بيع الوحدة&nbsp;−&nbsp;التكلفة المتغيرة للوحدة</div>
+<ul class="flegend"><li>هو الجزء من سعر البيع اللي فاضل بعد تغطية التكلفة المتغيرة، وبيروح أولًا لتغطية التكاليف الثابتة ثم الربح.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">١٧) نسبة هامش المساهمة</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">هامش المساهمة للوحدة</span><span class="den">سعر بيع الوحدة</span></span></div>
+</div>
+
+<div class="fcard">
+<div class="fname">١٨) حجم التعادل بالوحدات</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">التكاليف الثابتة + الربح المستهدف</span><span class="den">هامش المساهمة للوحدة</span></span></div>
+<ul class="flegend"><li>عند التعادل البسيط (بدون ربح مستهدف) نضع الربح المستهدف = صفر.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">١٩) قيمة مبيعات التعادل (بالجنيه)</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">التكاليف الثابتة + الربح المستهدف</span><span class="den">نسبة هامش المساهمة</span></span></div>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٠) قيمة المبيعات لتحقيق نسبة ربح معينة من المبيعات</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">التكاليف الثابتة</span><span class="den">نسبة هامش المساهمة − نسبة الربح المطلوبة</span></span></div>
+</div>
+
+<div class="fcard">
+<div class="fname">٢١) صافي الربح أو الخسارة عند حجم معيّن</div>
+<div class="feq">= (حجم المبيعات الفعلي − حجم مبيعات التعادل)&nbsp;×&nbsp;هامش المساهمة للوحدة</div>
+<ul class="flegend"><li>ميزته: يحسب الربح مباشرة عند أي حجم مبيعات <b>بدون</b> عمل قائمة دخل كاملة.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٢) هامش الأمان</div>
+<div class="feq">= المبيعات الفعلية (أو المتوقعة)&nbsp;−&nbsp;مبيعات التعادل</div>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٣) نسبة هامش الأمان</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">المبيعات الفعلية − مبيعات التعادل</span><span class="den">المبيعات الفعلية</span></span>&nbsp;× 100</div>
+<ul class="flegend"><li>كل ما النسبة أعلى، كل ما المنشأة أأمن (مخاطرة أقل من الوصول للخسارة).</li></ul>
+</div>
+
+<h3>الوحدة ٥ — نظام المراحل والوحدات المتجانسة</h3>
+
+<div class="fcard">
+<div class="fname">٢٤) الإنتاج المتجانس (المكافئ)</div>
+<div class="feq">= الوحدات التامة والمحوَّلة&nbsp;+&nbsp;(وحدات تحت التشغيل آخر المدة&nbsp;×&nbsp;درجة التمام %)</div>
+<ul class="flegend"><li>الوحدات التامة تُحسب بمعدل تمام 100% كاملة، والوحدات الناقصة تُحسب بنسبة ما أُنجز فيها فقط.</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٥) متوسط تكلفة الوحدة المتجانسة</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">تكلفة المرحلة</span><span class="den">عدد الوحدات المتجانسة</span></span></div>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٦) تكلفة الإنتاج التام المحوَّل للمرحلة التالية</div>
+<div class="feq">= عدد الوحدات التامة&nbsp;×&nbsp;متوسط تكلفة الوحدة المتجانسة</div>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٧) تكلفة الإنتاج تحت التشغيل آخر الفترة</div>
+<div class="feq">= عدد الوحدات المكافئة تحت التشغيل&nbsp;×&nbsp;متوسط تكلفة الوحدة المتجانسة</div>
+</div>
+
+<h3>الوحدة ٦ — نظام التكلفة على أساس النشاط (ABC)</h3>
+
+<div class="fcard">
+<div class="fname">٢٨) معدل التحميل (التخصيص)</div>
+<div class="feq">=&nbsp;<span class="frac"><span class="num">تكلفة النشاط</span><span class="den">إجمالي مسبب التكلفة</span></span></div>
+<ul class="flegend"><li><b>مسبب التكلفة</b> = المقياس المرتبط سببيًا بالتكلفة (مثل: عدد ساعات تشغيل الآلات).</li></ul>
+</div>
+
+<div class="fcard">
+<div class="fname">٢٩) التكلفة المخصصة للمنتج</div>
+<div class="feq">= نصيب المنتج من مسبب التكلفة&nbsp;×&nbsp;معدل التحميل</div>
+</div>
+
+<h3>الوحدة ٢ — تكلفة الفرصة البديلة</h3>
+
+<div class="fcard">
+<div class="fname">٣٠) تكلفة الفرصة البديلة</div>
+<div class="feq">= صافي الدخل المتوقع لأفضل بديل <u>تمت التضحية به</u></div>
+<ul class="flegend"><li>يُقصد به البديل التالي مباشرة في الأفضلية بعد البديل الذي تم اختياره فعلًا — وليس أسوأ البدائل.</li></ul>
+</div>
+</section>
+
+<section id="glossary">
+<h2>🔤 قاموس المصطلحات بالإنجليزي</h2>
+<p>كل المصطلحات الإنجليزية اللي بتتكرر في المنهج، مرتبة أبجديًا مع معناها بالعربي.</p>
+<table>
+<tr><th>English</th><th>بالعربي</th></tr>
+<tr><td>Absorption Costing</td><td>نظرية التكلفة الإجمالية / الكلية (التحميل الكلي)</td></tr>
+<tr><td>Activity Based Costing (ABC)</td><td>التكلفة على أساس النشاط</td></tr>
+<tr><td>Actual Cost / Historical Cost</td><td>التكلفة الفعلية / التاريخية</td></tr>
+<tr><td>Break-even Point</td><td>نقطة التعادل</td></tr>
+<tr><td>Budgeted Cost</td><td>التكلفة التقديرية</td></tr>
+<tr><td>Contribution Margin</td><td>هامش المساهمة (الربح الحدي)</td></tr>
+<tr><td>Controllable Cost</td><td>تكلفة قابلة للرقابة</td></tr>
+<tr><td>Conversion Cost</td><td>تكلفة التحويل (أجور + مصروفات صناعية غير مباشرة)</td></tr>
+<tr><td>Cost Accounting</td><td>محاسبة التكاليف</td></tr>
+<tr><td>Cost Accumulation Methods</td><td>طرق تجميع التكاليف</td></tr>
+<tr><td>Cost Allocation</td><td>تخصيص التكلفة</td></tr>
+<tr><td>Cost Center</td><td>مركز التكلفة</td></tr>
+<tr><td>Cost Driver</td><td>مسبب التكلفة</td></tr>
+<tr><td>Cost of Goods Sold (COGS)</td><td>تكلفة البضاعة المباعة</td></tr>
+<tr><td>Cost Period</td><td>فترة التكاليف</td></tr>
+<tr><td>Cost Systems</td><td>نظم التكاليف</td></tr>
+<tr><td>Cost Unit</td><td>وحدة التكلفة</td></tr>
+<tr><td>Cost-Volume-Profit (CVP)</td><td>تحليل العلاقة بين التكلفة والحجم والربح</td></tr>
+<tr><td>Differential Cost</td><td>التكلفة التفاضلية</td></tr>
+<tr><td>Direct Cost</td><td>تكلفة مباشرة</td></tr>
+<tr><td>Equivalent Units</td><td>الوحدات المتجانسة (المكافئة)</td></tr>
+<tr><td>Finished Goods</td><td>إنتاج تام / بضاعة تامة الصنع</td></tr>
+<tr><td>Fixed Cost</td><td>تكلفة ثابتة</td></tr>
+<tr><td>Generally Accepted Accounting Principles (GAAP)</td><td>المبادئ المحاسبية المتعارف عليها</td></tr>
+<tr><td>Ideal / Standard-Ideal Cost</td><td>التكلفة النمطية (المثالية)</td></tr>
+<tr><td>Indirect Cost</td><td>تكلفة غير مباشرة</td></tr>
+<tr><td>Job Order Costing</td><td>نظام تكاليف الأوامر الإنتاجية</td></tr>
+<tr><td>Just In Time (JIT)</td><td>نظام الإنتاج في الوقت المناسب</td></tr>
+<tr><td>Margin of Safety</td><td>هامش الأمان</td></tr>
+<tr><td>Opportunity Cost</td><td>تكلفة الفرصة البديلة</td></tr>
+<tr><td>Overhead / Factory Overhead</td><td>الأعباء الإضافية / المصروفات الصناعية غير المباشرة</td></tr>
+<tr><td>Period Cost</td><td>تكلفة الفترة (زمنية)</td></tr>
+<tr><td>Prime Cost</td><td>التكلفة الأولية (مباشرة)</td></tr>
+<tr><td>Process Costing</td><td>نظام تكاليف المراحل</td></tr>
+<tr><td>Product Cost</td><td>تكلفة المنتج (السلعية)</td></tr>
+<tr><td>Responsibility Accounting</td><td>محاسبة المسؤولية</td></tr>
+<tr><td>Standard Cost</td><td>التكلفة المعيارية</td></tr>
+<tr><td>Sunk Cost</td><td>التكلفة الغارقة</td></tr>
+<tr><td>Systems Approach</td><td>منهج النظم</td></tr>
+<tr><td>Total Quality Management (TQM)</td><td>إدارة الجودة الشاملة</td></tr>
+<tr><td>Uncontrollable Cost</td><td>تكلفة غير قابلة للرقابة</td></tr>
+<tr><td>Value Chain</td><td>سلسلة القيمة</td></tr>
+<tr><td>Variable (Marginal) Costing</td><td>نظرية التكلفة المتغيرة (الحدية)</td></tr>
+<tr><td>Variable Cost</td><td>تكلفة متغيرة</td></tr>
+<tr><td>Work in Process (WIP)</td><td>إنتاج تحت التشغيل</td></tr>
+</table>
+</section>
+
+<footer>مرجع دراسي مبني على محتوى كتاب "مبادئ محاسبة التكاليف" — دكتورة أماني الملجي، المعهد العالي للسياحة والفنادق والحاسب الآلي (السيوف، الإسكندرية).</footer>
+</main>
+</div>
+</body>
+</html>
